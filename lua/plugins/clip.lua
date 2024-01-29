@@ -3,6 +3,7 @@ return {
     dependencies = {
         { "nvim-telescope/telescope.nvim" },
     },
+    lazy = true,
     config = function()
         require("neoclip").setup({
             keys = {

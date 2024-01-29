@@ -5,7 +5,7 @@ return {
             signcolumn = true
         })
     end,
-    lazy = false,
+    lazy = true,
     keys = {
         {
             "<leader>gb",

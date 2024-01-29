@@ -2,6 +2,7 @@ return {
     "akinsho/toggleterm.nvim",
     version = "*",
     config = true,
+    lazy = true,
     keys = {
         {
             "<c-t>h",

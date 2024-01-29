@@ -5,5 +5,4 @@ return {
         vim.o.timeoutlen = 300
         require("which-key").setup({})
     end,
-
 }

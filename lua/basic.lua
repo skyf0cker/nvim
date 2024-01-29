@@ -57,8 +57,5 @@ vim.o.splitright = true
 
 vim.g.completeopt = "menu,menuone,noselect,noinsert"
 
-vim.o.list = true
-
 vim.o.shortmess = vim.o.shortmess .. "c"
 vim.o.pumheight = 10
-

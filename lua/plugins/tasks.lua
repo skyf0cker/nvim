@@ -167,7 +167,6 @@ local function global_tasks(win)
     return ts
 end
 
-
 return {
     "jedrzejboczar/toggletasks.nvim",
     dependencies = {
@@ -175,10 +174,11 @@ return {
         "akinsho/toggleterm.nvim",
         "nvim-telescope/telescope.nvim",
     },
+    lazy = true,
     config = function()
         require("toggletasks").setup({
             debug = false,
-            silent = false,     -- don't show "info" messages
+            silent = false, -- don't show "info" messages
             short_paths = true, -- display relative paths when possible
             -- Paths (without extension) to task configuration files (relative to scanned directory)
             -- All supported extensions will be tested, e.g. '.toggletasks.json', '.toggletasks.yaml'
@@ -189,15 +189,15 @@ return {
             },
             -- Directories to consider when searching for available tasks for current window
             scan = {
-                global_cwd = true,   -- vim.fn.getcwd(-1, -1)
-                tab_cwd = true,      -- vim.fn.getcwd(-1, tab)
-                win_cwd = true,      -- vim.fn.getcwd(win)
-                lsp_root = true,     -- root_dir for first LSP available for the buffer
-                dirs = {},           -- explicit list of directories to search or function(win): dirs
-                rtp = true,          -- scan directories in &runtimepath
+                global_cwd = true, -- vim.fn.getcwd(-1, -1)
+                tab_cwd = true, -- vim.fn.getcwd(-1, tab)
+                win_cwd = true, -- vim.fn.getcwd(win)
+                lsp_root = true, -- root_dir for first LSP available for the buffer
+                dirs = {}, -- explicit list of directories to search or function(win): dirs
+                rtp = true, -- scan directories in &runtimepath
                 rtp_ftplugin = true, -- scan in &rtp by filetype, e.g. ftplugin/c/toggletasks.json
             },
-            tasks = global_tasks,    -- list of global tasks or function(win): tasks
+            tasks = global_tasks, -- list of global tasks or function(win): tasks
             -- this is basically the "Config format" defined using Lua tables
             -- Language server priorities when selecting lsp_root (default is 0)
             lsp_priorities = {
@@ -211,15 +211,15 @@ return {
             -- Configuration of telescope pickers
             telescope = {
                 spawn = {
-                    open_single = true,   -- auto-open terminal window when spawning a single task
+                    open_single = true, -- auto-open terminal window when spawning a single task
                     show_running = false, -- include already running tasks in picker candidates
                     -- Replaces default select_* actions to spawn task (and change toggleterm
                     -- direction for select horiz/vert/tab)
                     mappings = {
                         select_float = "<C-f>",
                         spawn_smart = "<C-a>", -- all if no entries selected, else use multi-select
-                        spawn_all = "<M-a>",   -- all visible entries
-                        spawn_selected = nil,  -- entries selected via multi-select (default <tab>)
+                        spawn_all = "<M-a>", -- all visible entries
+                        spawn_selected = nil, -- entries selected via multi-select (default <tab>)
                     },
                 },
                 -- Replaces default select_* actions to open task terminal (and change toggleterm

@@ -166,8 +166,8 @@ return {
         {
             "<c-b>",
             function()
-                require("nvim-tree.api").tree.toggle()
-            end
+                vim.cmd([[ NvimTreeToggle ]])
+            end,
         },
-    }
+    },
 }
