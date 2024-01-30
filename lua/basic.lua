@@ -59,3 +59,5 @@ vim.g.completeopt = "menu,menuone,noselect,noinsert"
 
 vim.o.shortmess = vim.o.shortmess .. "c"
 vim.o.pumheight = 10
+
+vim.o.scrolloff=math.floor(0.5 * vim.o.lines)

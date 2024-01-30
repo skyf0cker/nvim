@@ -30,4 +30,5 @@ return {
             },
         })
     end,
+    event = { "BufReadPost", "BufNewFile" },
 }

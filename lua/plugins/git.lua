@@ -1,8 +1,8 @@
 return {
     "lewis6991/gitsigns.nvim",
     config = function()
-        require('gitsigns').setup({
-            signcolumn = true
+        require("gitsigns").setup({
+            signcolumn = true,
         })
     end,
     lazy = true,
@@ -10,16 +10,17 @@ return {
         {
             "<leader>gb",
             function()
-                vim.cmd [[Gitsigns toggle_current_line_blame]]
+                vim.cmd([[Gitsigns toggle_current_line_blame]])
             end,
-            desc = "[G]it [B]lame"
+            desc = "[G]it [B]lame",
         },
         {
             "<leader>gd",
             function()
-                vim.cmd [[Gitsigns diffthis]]
+                vim.cmd([[Gitsigns diffthis]])
             end,
-            desc = "[G]it [D]iff"
-        }
-    }
+            desc = "[G]it [D]iff",
+        },
+    },
+    event = { "BufReadPost", "BufNewFile" },
 }

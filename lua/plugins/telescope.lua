@@ -35,81 +35,86 @@ return {
         {
             "<leader>ff",
             require("telescope.builtin").find_files,
-            desc = "[F]ind [F]iles"
+            desc = "[F]ind [F]iles",
         },
         {
             "<leader>sg",
             require("telescope.builtin").live_grep,
-            desc = "[S]earch by [G]rep"
+            desc = "[S]earch by [G]rep",
         },
         {
             "<leader>lb",
             require("telescope.builtin").buffers,
-            desc = "[L]ist [B]uffers"
+            desc = "[L]ist [B]uffers",
         },
         {
             "<leader>h",
             require("telescope.builtin").help_tags,
-            desc = "[H]elp"
+            desc = "[H]elp",
         },
         {
             "<leader>ln",
-            require('telescope').extensions.notify.notify,
-            desc = "[L]ist [N]otify"
+            require("telescope").extensions.notify.notify,
+            desc = "[L]ist [N]otify",
         },
         {
             "<leader>st",
-            require('telescope.builtin').treesitter,
-            desc = "[S]earch [T]reesitter"
+            require("telescope.builtin").treesitter,
+            desc = "[S]earch [T]reesitter",
         },
         {
             "gd",
-            require('telescope.builtin').lsp_definitions,
-            desc = "[G]oto [D]efinitions"
+            require("telescope.builtin").lsp_definitions,
+            desc = "[G]oto [D]efinitions",
         },
         {
             "gr",
-            require('telescope.builtin').lsp_references,
-            desc = "[G]oto [R]eferences"
+            require("telescope.builtin").lsp_references,
+            desc = "[G]oto [R]eferences",
         },
         {
             "gi",
-            require('telescope.builtin').lsp_implementations,
-            desc = "[G]oto [I]mplementations"
+            require("telescope.builtin").lsp_implementations,
+            desc = "[G]oto [I]mplementations",
         },
         {
             "<leader>ld",
             require("telescope.builtin").diagnostics,
-            desc = "[L]ist [D]iagnostics"
+            desc = "[L]ist [D]iagnostics",
         },
         {
             "<leader>lf",
             function()
-                require("telescope.builtin").lsp_document_symbols({ symbols = 'function' })
+                require("telescope.builtin").lsp_document_symbols({ symbols = "function" })
             end,
-            desc = "[L]ist [F]unctions"
+            desc = "[L]ist [F]unctions",
         },
         {
             "<leader>lm",
             function()
-                require("telescope.builtin").lsp_document_symbols({ symbols = 'method' })
+                require("telescope.builtin").lsp_document_symbols({ symbols = "method" })
             end,
-            desc = "[L]ist [M]ethods"
+            desc = "[L]ist [M]ethods",
         },
         {
             "<leader>lc",
             require("telescope").extensions.neoclip.default,
-            desc = "[L]ist [C]lipboard"
+            desc = "[L]ist [C]lipboard",
         },
         {
             "<leader>lt",
-            require('telescope').extensions.toggletasks.select,
-            desc = "[L]ist [T]asks"
+            require("telescope").extensions.toggletasks.select,
+            desc = "[L]ist [T]asks",
         },
         {
             "<leader>swt",
-            require('telescope').extensions.toggletasks.spawn,
-            desc = "[S]pa[W]n [T]asks"
-        }
+            require("telescope").extensions.toggletasks.spawn,
+            desc = "[S]pa[W]n [T]asks",
+        },
+        {
+            "<leader>ltb",
+            require("telescope.builtin").builtin,
+            desc = "[L]ist [T]elescope [B]uiltin",
+        },
     },
 }
