@@ -16,7 +16,7 @@ return {
     },
     on_attach = function(client, bufnr)
         local filepath = vim.api.nvim_buf_get_name(bufnr)
-        local start_idx, _ = string.find(filepath, 'leetcode')
+        local start_idx, _ = string.find(filepath, "leetcode")
         if start_idx then
             client.stop()
             return
@@ -44,6 +44,10 @@ return {
                 end
                 vim.lsp.buf.format({ async = false })
             end,
+        })
+
+        vim.keymap.set("n", "<leader>lgt", require("custom.go").list_go_tests, {
+            desc = "[L]ist [G]o [T]est",
         })
     end,
 }

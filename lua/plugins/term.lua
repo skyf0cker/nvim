@@ -38,4 +38,7 @@ return {
 			desc = "back to normal mode",
 		},
 	},
+    cmd = {
+        'TermExec'
+    }
 }
