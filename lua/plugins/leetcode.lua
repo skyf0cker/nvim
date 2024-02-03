@@ -11,16 +11,11 @@ return {
 		"rcarriga/nvim-notify",
 		"nvim-tree/nvim-web-devicons",
 	},
-	config = function()
-		require("leetcode").setup({
-			lang = "golang",
-			cn = {
-				enabled = true,
-			},
-		})
-
-		local leetcode_enhanced = require("custom.leetcode")
-		leetcode_enhanced.setup()
-	end,
-	cmd = { "Leet", "LeetToday" },
+	opts = {
+		lang = "golang",
+		cn = {
+			enabled = true,
+		},
+	},
+	cmd = { "Leet" },
 }

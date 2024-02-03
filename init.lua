@@ -13,12 +13,20 @@ vim.opt.rtp:prepend(lazypath)
 
 -- deps
 require("lazy").setup({
-	spec = { import = "plugins" },
+	spec = {
+		{ import = "plugins" },
+	},
 	ui = {
 		change_detection = {
 			enabled = true,
 			notify = false,
 		},
+	},
+	dev = {
+		path = vim.fn.stdpath("config") .. "/lua/custom/plugins",
+        patterns = {
+            "leetcode_custom"
+        }
 	},
 })
 
