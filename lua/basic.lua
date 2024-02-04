@@ -60,4 +60,11 @@ vim.g.completeopt = "menu,menuone,noselect,noinsert"
 vim.o.shortmess = vim.o.shortmess .. "c"
 vim.o.pumheight = 10
 
-vim.o.scrolloff=math.floor(0.5 * vim.o.lines)
+vim.o.scrolloff = math.floor(0.5 * vim.o.lines)
+
+vim.api.nvim_create_autocmd("BufReadPost", {
+	desc = "Open file at the last position it was edited earlier",
+	group = misc_augroup,
+	pattern = "*",
+	command = 'silent! normal! g`"zv',
+})
