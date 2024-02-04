@@ -25,7 +25,7 @@ require("lazy").setup({
 	dev = {
 		path = vim.fn.stdpath("config") .. "/lua/custom/plugins",
         patterns = {
-            "leetcode_custom"
+            "leetcode_playground"
         }
 	},
 })
