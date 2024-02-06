@@ -147,6 +147,11 @@ return {
             reload_on_bufenter = true,
             sort_by = "case_sensitive",
             on_attach = on_attach,
+            update_focused_file = {
+                enable = true, -- enables the feature
+                update_cwd = false, -- keep the tree cwd independent of the current file
+                ignore_list = {}, -- files to be ignored
+            },
             git = {
                 ignore = false,
             },
@@ -161,17 +166,6 @@ return {
             filters = {
                 dotfiles = true,
             },
-        })
-
-        vim.api.nvim_create_autocmd({ "BufRead" }, {
-            callback = function(ev)
-                local api = require("nvim-tree.api")
-                if api.tree.is_visible() then
-                    api.tree.open({
-                        find_file = true,
-                    })
-                end
-            end,
         })
     end,
     keys = {
