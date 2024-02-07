@@ -46,7 +46,7 @@ return {
             end,
         })
 
-        vim.keymap.set("n", "<leader>lgt", require("custom.go_ex").list_go_tests, {
+        vim.keymap.set("n", "<leader>lgt", require("custom.plugins.go").list_go_tests, {
             desc = "[L]ist [G]o [T]est",
         })
 
