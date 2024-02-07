@@ -15,12 +15,12 @@ return {
         },
     },
     on_attach = function(client, bufnr)
-        local filepath = vim.api.nvim_buf_get_name(bufnr)
-        local start_idx, _ = string.find(filepath, "leetcode")
-        if start_idx then
-            client.stop()
-            return
-        end
+        -- local filepath = vim.api.nvim_buf_get_name(bufnr)
+        -- local start_idx, _ = string.find(filepath, "leetcode")
+        -- if start_idx then
+        --     client.stop()
+        --     return
+        -- end
 
         vim.api.nvim_create_autocmd("BufWritePre", {
             pattern = "*.go",
