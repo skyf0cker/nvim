@@ -4,6 +4,7 @@ return {
     dependencies = "nvim-tree/nvim-web-devicons",
     config = function()
         require("bufferline").setup({
+            -- highlights = require("vesper").bufferline.highlights,
             options = {
                 mode = "tabs",
                 diagnostics = "nvim_lsp",
