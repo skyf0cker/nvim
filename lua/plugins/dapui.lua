@@ -4,7 +4,20 @@ return {
 		"mfussenegger/nvim-dap",
 	},
 	config = function()
-		require("dapui").setup()
+		require("dapui").setup({
+			layouts = {
+				{
+					elements = {
+						{
+							id = "watches",
+							size = 1,
+						},
+					},
+					position = "left",
+					size = 40,
+				},
+			},
+		})
 	end,
 	keys = {
 		{
