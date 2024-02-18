@@ -47,6 +47,5 @@
   "toggleterm.nvim": { "branch": "main", "commit": "cbd041d91b90cd3c02df03fe6133208888f8e008" },
   "vesper.nvim": { "branch": "main", "commit": "8bdd181cbc7b42766baf4bd80f8c0afc8c826c7f" },
   "which-key.nvim": { "branch": "main", "commit": "4433e5ec9a507e5097571ed55c02ea9658fb268a" },
-  "workspaces.nvim": { "branch": "master", "commit": "d6e0bd7e11790790e07dc9d8d353144c8b4edfb8" },
-  "xcodebuild.nvim": { "branch": "main", "commit": "75cdc30e4f56975775bf752658bffae9e22f09d8" }
+  "workspaces.nvim": { "branch": "master", "commit": "d6e0bd7e11790790e07dc9d8d353144c8b4edfb8" }
 }
