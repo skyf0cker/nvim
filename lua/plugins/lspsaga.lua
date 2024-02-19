@@ -5,6 +5,7 @@ return {
 			outline = {
                 detail = false,
                 auto_preview = false,
+                close_after_jump = true,
 			},
 		})
 
