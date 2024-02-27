@@ -67,6 +67,8 @@ return {
                 lualine_c = {},
                 lualine_x = {},
             },
+              extensions = {'nvim-tree'} -- Ensure you have this line to integrate Lualine with nvim-tree
+
         }
 
         -- Inserts a component in lualine_c at left section
@@ -148,26 +150,26 @@ return {
             end,
         })
 
-        ins_left({
-            -- Lsp server name .
-            function()
-                local msg = "No Active Lsp"
-                local buf_ft = vim.api.nvim_buf_get_option(0, "filetype")
-                local clients = vim.lsp.get_active_clients()
-                if next(clients) == nil then
-                    return msg
-                end
-                for _, client in ipairs(clients) do
-                    local filetypes = client.config.filetypes
-                    if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
-                        return client.name
-                    end
-                end
-                return msg
-            end,
-            icon = " LSP:",
-            color = { fg = "#ffffff", gui = "bold" },
-        })
+        -- ins_left({
+        --     -- Lsp server name .
+        --     function()
+        --         local msg = "No Active Lsp"
+        --         local buf_ft = vim.api.nvim_buf_get_option(0, "filetype")
+        --         local clients = vim.lsp.get_active_clients()
+        --         if next(clients) == nil then
+        --             return msg
+        --         end
+        --         for _, client in ipairs(clients) do
+        --             local filetypes = client.config.filetypes
+        --             if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
+        --                 return client.name
+        --             end
+        --         end
+        --         return msg
+        --     end,
+        --     icon = " LSP:",
+        --     color = { fg = "#ffffff", gui = "bold" },
+        -- })
 
         -- Add components to right sections
         ins_right({
@@ -185,12 +187,11 @@ return {
 
         ins_right({
             "diff",
-            -- Is it me or the symbol for modified us really weird
-            symbols = { added = " ", modified = "󰝤 ", removed = " " },
+            symbols = { added = " ", modified = "󱓻 ", removed = " " },
             diff_color = {
                 added = { fg = colors.green },
-                modified = { fg = colors.orange },
-                removed = { fg = colors.red },
+                modified = { fg = colors.green },
+                removed = { fg = colors.green },
             },
             cond = conditions.hide_in_width,
         })
@@ -203,7 +204,6 @@ return {
             padding = { left = 1 },
         })
 
-        -- Now don't forget to initialize lualine
         lualine.setup(config)
     end,
 }
