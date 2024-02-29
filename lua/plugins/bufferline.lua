@@ -3,8 +3,18 @@ return {
     version = "*",
     dependencies = "nvim-tree/nvim-web-devicons",
     config = function()
+        local p = require("rose-pine.palette")
         require("bufferline").setup({
-            -- highlights = require("vesper").bufferline.highlights,
+            highlights = {
+                fill = {
+                    guifg = p.text,
+                    guibg = p.base,
+                },
+                background = {
+                    guifg = p.text,
+                    guibg = p.base,
+                },
+            },
             options = {
                 mode = "tabs",
                 diagnostics = "nvim_lsp",
@@ -12,9 +22,9 @@ return {
                     local icon = level:match("error") and " " or " "
                     return " " .. icon .. count
                 end,
+                separator_style = "slant",
                 show_close_icon = false,
                 show_buffer_close_icons = false,
-                separator_style = "slant",
                 offsets = {
                     {
                         filetype = "NvimTree",

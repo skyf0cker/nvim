@@ -62,6 +62,8 @@ vim.o.pumheight = 10
 
 vim.o.scrolloff = math.floor(0.5 * vim.o.lines)
 
+vim.o.termguicolors = true
+
 vim.api.nvim_create_autocmd("BufReadPost", {
 	desc = "Open file at the last position it was edited earlier",
 	group = misc_augroup,
