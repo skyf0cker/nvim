@@ -49,13 +49,10 @@ return {
 				enabled = true,
 			},
 			hooks = {
-				LeetQuestionNew = {
-					function()
-						setup_keymap()
-					end,
-				},
+				["question_enter"] = function()
+					setup_keymap()
+				end,
 			},
-			image_support = true,
 		})
 	end,
 	cmd = { "Leet" },
