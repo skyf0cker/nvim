@@ -1,6 +1,6 @@
 vim.keymap.set("v", "<leader>y", '"+y', {
-	noremap = true,
-	desc = "copy into system clipboard",
+    noremap = true,
+    desc = "copy into system clipboard",
 })
 
 -- vim.o.foldnestmax = 1
@@ -23,31 +23,35 @@ vim.keymap.set("v", "<leader>y", '"+y', {
 --
 
 vim.keymap.set("n", "<c-w>>", "10<c-w>>", {
-	desc = "10x increase width",
+    desc = "10x increase width",
 })
 
 vim.keymap.set("n", "<c-w><", "10<c-w><", {
-	desc = "10x increase width",
+    desc = "10x increase width",
 })
 
 vim.keymap.set("n", "<c-b>", ":Lexplore<CR>", {
-	desc = "Explore",
-	silent = true,
+    desc = "Explore",
+    silent = true,
 })
 
 local function netrw_keymap()
-	vim.api.nvim_set_keymap("n", "l", "<CR>", {})
-	vim.api.nvim_set_keymap("n", "h", "-", {})
-	vim.api.nvim_set_keymap("n", ".", "gh", {})
-	vim.api.nvim_set_keymap("n", "P", "<C-w>z", {})
-	vim.api.nvim_set_keymap("n", "<C-b>", ":Lexplore <CR>", {})
+    local opts = {
+        buffer = true,
+        remap = true,
+    }
+
+    vim.keymap.set("n", "l", "<CR>", opts)
+    vim.keymap.set("n", "h", "-", opts)
+    vim.keymap.set("n", ".", "gh", opts)
+    vim.keymap.set("n", "P", "<C-w>z", opts)
+    vim.keymap.set("n", "<C-b>", "<cmd>Lexplore<CR>", opts)
+    vim.keymap.set("n", "a", "%", opts)
 end
 
-local group = vim.api.nvim_create_augroup("NetrwSettings", { clear = true })
+-- local group = vim.api.nvim_create_augroup("NetrwSettings", { clear = true })
 vim.api.nvim_create_autocmd("FileType", {
-	pattern = "netrw",
-	callback = function()
-		netrw_keymap()
-	end,
-	group = group,
+    pattern = "netrw",
+    callback = netrw_keymap,
+    -- group = group,
 })

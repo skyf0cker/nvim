@@ -18,42 +18,42 @@ return {
     end,
     keys = {
         {
-            "<leader>db",
+            "<space>b",
             function()
                 require("dap").toggle_breakpoint()
             end,
             desc = "[D]ebug [b]reakpoint",
         },
         {
-            "<leader>dc",
+            "<space>c",
             function()
                 require("dap").continue()
             end,
             desc = "[D]ebug [C]ontinue",
         },
         {
-            "<leader>dn",
+            "<space>n",
             function()
                 require("dap").step_over()
             end,
             desc = "[D]ebug [N]ext",
         },
         {
-            "<leader>ds",
+            "<space>s",
             function()
                 require("dap").step_into()
             end,
             desc = "[D]ebug [S]tep into",
         },
         {
-            "<leader>dr",
+            "<space>dr",
             function()
                 require("dap").restart()
             end,
             desc = "[D]ebug [r]estart",
         },
         {
-            "<leader>dt",
+            "<space>dt",
             function()
                 require("dap").terminate()
             end,

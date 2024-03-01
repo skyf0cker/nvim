@@ -13,8 +13,8 @@ return {
 							size = 1,
 						},
 					},
-					position = "left",
-					size = 40,
+					position = "bottom",
+					size = 10,
 				},
 			},
 		})
