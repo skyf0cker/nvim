@@ -64,9 +64,18 @@ vim.o.scrolloff = math.floor(0.5 * vim.o.lines)
 
 vim.o.termguicolors = true
 
+vim.g.netrw_keepdir = 0
+vim.g.netrw_banner = 0
+vim.g.netrw_winsize = 30
+
+vim.api.nvim_set_hl(0, "netrwMarkFile", {
+    link = "Search",
+})
+
+local group = vim.api.nvim_create_augroup("misc_augroup", { clear = true })
 vim.api.nvim_create_autocmd("BufReadPost", {
-	desc = "Open file at the last position it was edited earlier",
-	group = misc_augroup,
-	pattern = "*",
-	command = 'silent! normal! g`"zv',
+    desc = "Open file at the last position it was edited earlier",
+    group = misc_augroup,
+    pattern = "*",
+    command = 'silent! normal! g`"zv',
 })
