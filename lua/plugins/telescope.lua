@@ -33,26 +33,26 @@ return {
         require("telescope").load_extension("workspaces")
     end,
     keys = {
-        {
-            "<leader>ff",
-            require("telescope.builtin").find_files,
-            desc = "[F]ind [F]iles",
-        },
-        {
-            "<leader>sg",
-            require("telescope.builtin").live_grep,
-            desc = "[S]earch by [G]rep",
-        },
-        {
-            "<leader>lb",
-            require("telescope.builtin").buffers,
-            desc = "[L]ist [B]uffers",
-        },
-        {
-            "<leader>h",
-            require("telescope.builtin").help_tags,
-            desc = "[H]elp",
-        },
+        -- {
+        --     "<leader>ff",
+        --     require("telescope.builtin").find_files,
+        --     desc = "[F]ind [F]iles",
+        -- },
+        -- {
+        --     "<leader>sg",
+        --     require("telescope.builtin").live_grep,
+        --     desc = "[S]earch by [G]rep",
+        -- },
+        -- {
+        --     "<leader>lb",
+        --     require("telescope.builtin").buffers,
+        --     desc = "[L]ist [B]uffers",
+        -- },
+        -- {
+        -- 	"<leader>h",
+        -- 	require("telescope.builtin").help_tags,
+        -- 	desc = "[H]elp",
+        -- },
         {
             "<leader>ln",
             require("telescope").extensions.notify.notify,
@@ -63,26 +63,26 @@ return {
             require("telescope.builtin").treesitter,
             desc = "[S]earch [T]reesitter",
         },
-        {
-            "gd",
-            require("telescope.builtin").lsp_definitions,
-            desc = "[G]oto [D]efinitions",
-        },
-        {
-            "gr",
-            require("telescope.builtin").lsp_references,
-            desc = "[G]oto [R]eferences",
-        },
-        {
-            "gi",
-            require("telescope.builtin").lsp_implementations,
-            desc = "[G]oto [I]mplementations",
-        },
-        {
-            "<leader>ld",
-            require("telescope.builtin").diagnostics,
-            desc = "[L]ist [D]iagnostics",
-        },
+        -- {
+        -- 	"gd",
+        -- 	require("telescope.builtin").lsp_definitions,
+        -- 	desc = "[G]oto [D]efinitions",
+        -- },
+        -- {
+        -- 	"gr",
+        -- 	require("telescope.builtin").lsp_references,
+        -- 	desc = "[G]oto [R]eferences",
+        -- },
+        -- {
+        -- 	"gi",
+        -- 	require("telescope.builtin").lsp_implementations,
+        -- 	desc = "[G]oto [I]mplementations",
+        -- },
+        -- {
+        --     "<leader>ld",
+        --     require("telescope.builtin").diagnostics,
+        --     desc = "[L]ist [D]iagnostics",
+        -- },
         {
             "<leader>lf",
             function()

@@ -46,7 +46,7 @@ local function netrw_keymap()
     vim.keymap.set("n", ".", "gh", opts)
     vim.keymap.set("n", "P", "<C-w>z", opts)
     vim.keymap.set("n", "<C-b>", "<cmd>Lexplore<CR>", opts)
-    vim.keymap.set("n", "a", "%", opts)
+    vim.keymap.set("n", "a", "%:w<CR>:buffer #<CR>", opts)
 end
 
 -- local group = vim.api.nvim_create_augroup("NetrwSettings", { clear = true })
