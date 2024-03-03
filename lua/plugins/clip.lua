@@ -1,33 +1,23 @@
 return {
     "AckslD/nvim-neoclip.lua",
     dependencies = {
-        { "nvim-telescope/telescope.nvim" },
+        { "ibhagwan/fzf-lua" },
     },
     lazy = true,
     config = function()
         require("neoclip").setup({
             keys = {
-                telescope = {
-                    i = {
-                        select = "<cr>",
-                        paste = "<c-p>",
-                        paste_behind = "<c-k>",
-                        replay = "<c-q>", -- replay a macro
-                        delete = "<c-d>", -- delete an entry
-                        edit = "<c-e>", -- edit an entry
-                        custom = {},
-                    },
-                    n = {
-                        select = "<cr>",
-                        paste = "p",
-                        paste_behind = "P",
-                        replay = "q",
-                        delete = "d",
-                        edit = "e",
-                        custom = {},
-                    },
+                fzf = {
+                    select = "default",
+                    paste = "p",
                 },
             },
+        })
+
+        vim.keymap.set("n", "<leader>lc", function()
+            require("neoclip.fzf")()
+        end, {
+            desc = "[L]ist [C]lipboard",
         })
     end,
     event = { "BufReadPost", "BufNewFile" },

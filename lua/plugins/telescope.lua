@@ -29,7 +29,7 @@ return {
         })
 
         require("telescope").load_extension("toggletasks")
-        require("telescope").load_extension("neoclip")
+        -- require("telescope").load_extension("neoclip")
         require("telescope").load_extension("workspaces")
     end,
     keys = {
@@ -53,16 +53,16 @@ return {
         -- 	require("telescope.builtin").help_tags,
         -- 	desc = "[H]elp",
         -- },
-        {
-            "<leader>ln",
-            require("telescope").extensions.notify.notify,
-            desc = "[L]ist [N]otify",
-        },
-        {
-            "<leader>st",
-            require("telescope.builtin").treesitter,
-            desc = "[S]earch [T]reesitter",
-        },
+        -- {
+        --     "<leader>ln",
+        --     require("telescope").extensions.notify.notify,
+        --     desc = "[L]ist [N]otify",
+        -- },
+        -- {
+        --     "<leader>st",
+        --     require("telescope.builtin").treesitter,
+        --     desc = "[S]earch [T]reesitter",
+        -- },
         -- {
         -- 	"gd",
         -- 	require("telescope.builtin").lsp_definitions,
@@ -83,25 +83,25 @@ return {
         --     require("telescope.builtin").diagnostics,
         --     desc = "[L]ist [D]iagnostics",
         -- },
-        {
-            "<leader>lf",
-            function()
-                require("telescope.builtin").lsp_document_symbols({ symbols = "function" })
-            end,
-            desc = "[L]ist [F]unctions",
-        },
-        {
-            "<leader>lm",
-            function()
-                require("telescope.builtin").lsp_document_symbols({ symbols = "method" })
-            end,
-            desc = "[L]ist [M]ethods",
-        },
-        {
-            "<leader>lc",
-            require("telescope").extensions.neoclip.default,
-            desc = "[L]ist [C]lipboard",
-        },
+        -- {
+        --     "<leader>lf",
+        --     function()
+        --         require("telescope.builtin").lsp_document_symbols({ symbols = "function" })
+        --     end,
+        --     desc = "[L]ist [F]unctions",
+        -- },
+        -- {
+        --     "<leader>lm",
+        --     function()
+        --         require("telescope.builtin").lsp_document_symbols({ symbols = "method" })
+        --     end,
+        --     desc = "[L]ist [M]ethods",
+        -- },
+        -- {
+        --     "<leader>lc",
+        --     require("telescope").extensions.neoclip.default,
+        --     desc = "[L]ist [C]lipboard",
+        -- },
         {
             "<leader>lt",
             require("telescope").extensions.toggletasks.select,
