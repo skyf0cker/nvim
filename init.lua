@@ -27,7 +27,6 @@ require("lazy").setup({
 require("basic")
 require("keymap")
 
-local luarocks_path = vim.fn.expand("~/.luarocks/share/lua/5.1/?.lua")
-local luarocks_cpath = vim.fn.expand("~/.luarocks/lib/lua/5.1/?/?.so")
-package.path = package.path .. ";" .. luarocks_path
-package.cpath = package.cpath .. ";" .. luarocks_cpath
+package.path = package.path .. ";" .. vim.fn.expand("$HOME") .. "/.luarocks/share/lua/5.1/?/init.lua"
+package.path = package.path .. ";" .. vim.fn.expand("$HOME") .. "/.luarocks/share/lua/5.1/?.lua"
+package.cpath = package.cpath .. ";" .. vim.fn.expand("$HOME") .. "/.luarocks/lib/lua/5.1/?/?.so"
