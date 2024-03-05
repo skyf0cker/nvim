@@ -85,14 +85,14 @@ return {
 		{
 			"<leader>ff",
 			function()
-				require("fzf-lua").files()
+				require("fzf-lua").files({ cmd = "fd --type f --exclude node_modules --exclude vendor" })
 			end,
 			desc = "[F]ind [F]ile",
 		},
 		{
 			"<leader>sg",
 			function()
-				require("fzf-lua").live_grep()
+				require("fzf-lua").live_grep({ cmd = "rg --color=always --smart-case -g '!{.git,node_modules,vendor}/'" })
 			end,
 			desc = "[S]earch by [G]rep",
 		},
