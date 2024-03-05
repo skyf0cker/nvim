@@ -55,57 +55,101 @@ return {
 	lazy = true,
 	config = function()
 		-- calling `setup` is optional for customization
-		require("fzf-lua").setup({})
+		require("fzf-lua").setup({
+			keymap = {
+				builtin = {
+					["<C-u>"] = "preview-page-up",
+					["<C-d>"] = "preview-page-down",
+				},
+			},
+			previewers = {
+				builtin = {
+					treesitter = { enable = true },
+					extensions = {
+						-- neovim terminal only supports `viu` block output
+						["png"] = { "chafa" },
+						["jpg"] = { "chafa" },
+					},
+				},
+			},
+		})
+
+		vim.keymap.set({ "i" }, "<C-x><C-f>", function()
+			require("fzf-lua").complete_file({
+				cmd = "rg --files",
+				winopts = { preview = { hidden = "nohidden" } },
+			})
+		end, { silent = true, desc = "Fuzzy complete file" })
 	end,
 	keys = {
 		{
 			"<leader>ff",
-			"<cmd>FzfLua files<CR>",
+			function()
+				require("fzf-lua").files()
+			end,
 			desc = "[F]ind [F]ile",
 		},
 		{
 			"<leader>sg",
-			"<cmd>FzfLua live_grep<CR>",
+			function()
+				require("fzf-lua").live_grep()
+			end,
 			desc = "[S]earch by [G]rep",
 		},
 		{
 			"<leader>lb",
-			"<cmd>FzfLua buffers<CR>",
+			function()
+				require("fzf-lua").buffers()
+			end,
 			desc = "[L]ist [B]uffers",
 		},
 		{
 			"<leader>h",
-			"<cmd>FzfLua help_tags<CR>",
+			function()
+				require("fzf-lua").help_tags()
+			end,
 			desc = "[H]elp",
 		},
 		{
 			"gd",
-			"<cmd>FzfLua lsp_definitions<CR>",
+			function()
+				require("fzf-lua").lsp_definitions({ jump_to_single_result = true })
+			end,
 			desc = "[G]oto [D]efinitions",
 		},
 		{
 			"gr",
-			"<cmd>FzfLua lsp_references<CR>",
+			function()
+				require("fzf-lua").lsp_references({ includeDeclaration = false })
+			end,
 			desc = "[G]oto [R]eferences",
 		},
 		{
 			"gi",
-			"<cmd>FzfLua lsp_implementations<CR>",
+			function()
+				require("fzf-lua").lsp_implementations()
+			end,
 			desc = "[G]oto [I]mplementations",
 		},
 		{
 			"<leader>ld",
-			"<cmd>FzfLua diagnostics_document<CR>",
+			function()
+				require("fzf-lua").diagnostics_document()
+			end,
 			desc = "[L]ist [D]iagnostics",
 		},
 		{
 			"<leader>lad",
-			"<cmd>FzfLua diagnostics_workspace<CR>",
+			function()
+				require("fzf-lua").diagnostics_workspace()
+			end,
 			desc = "[L]ist [A]ll [D]iagnostics",
 		},
 		{
 			"<leader>ls",
-			"<cmd>FzfLua lsp_document_symbols<CR>",
+			function()
+				require("fzf-lua").lsp_document_symbols()
+			end,
 			desc = "[L]ist [S]ymbols",
 		},
 		{

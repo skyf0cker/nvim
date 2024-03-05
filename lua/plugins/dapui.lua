@@ -18,6 +18,10 @@ return {
 				},
 			},
 		})
+
+		vim.keymap.set("n", "<space>f", function()
+			require("dapui").float_element()
+		end, { silent = true, desc = "[F]loat [D]ebug" })
 	end,
 	keys = {
 		{
