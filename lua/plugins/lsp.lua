@@ -51,7 +51,7 @@ return {
 			}))
 		end
 
-		-- require("sg").setup({})
+		require("sg").setup({})
 
 		vim.cmd([[autocmd BufWritePost *.go lua vim.lsp.buf.format({timeout_ms = 1000})]])
 		vim.cmd([[autocmd BufWritePost *.lua lua vim.lsp.buf.format({timeout_ms = 1000})]])

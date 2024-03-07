@@ -1,5 +1,5 @@
 return {
-	"jose-elias-alvarez/null-ls.nvim",
+	"nvimtools/none-ls.nvim",
 	config = function()
 		local null_ls = require("null-ls")
 		null_ls.setup({
@@ -12,6 +12,7 @@ return {
 				}),
 				null_ls.builtins.formatting.beautysh,
 				null_ls.builtins.formatting.tidy,
+				null_ls.builtins.formatting.sqlfmt,
 			},
 		})
 	end,
