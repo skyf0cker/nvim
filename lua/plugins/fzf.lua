@@ -135,7 +135,7 @@ return {
         {
             "gi",
             function()
-                require("fzf-lua").lsp_implementations()
+                require("fzf-lua").lsp_implementations({ jump_to_single_result = true })
             end,
             desc = "[G]oto [I]mplementations",
         },
