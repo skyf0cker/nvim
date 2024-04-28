@@ -128,7 +128,10 @@ return {
         {
             "gr",
             function()
-                require("fzf-lua").lsp_references({ includeDeclaration = false })
+                require("fzf-lua").lsp_references({
+                    includeDeclaration = false,
+                    jump_to_single_result = true,
+                })
             end,
             desc = "[G]oto [R]eferences",
         },
