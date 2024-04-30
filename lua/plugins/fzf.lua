@@ -1,3 +1,47 @@
+local function split_string(str, len)
+    local result = {}
+    for i = 1, #str, len do
+        table.insert(result, str:sub(i, i + len - 1))
+    end
+    return result
+end
+
+local function split_by_newline(str)
+    local t = {}
+    for s in string.gmatch(str, "([^\n]*)\n?") do
+        table.insert(t, s)
+    end
+    return t
+end
+
+local builtin = require("fzf-lua.previewer.builtin")
+
+-- Inherit from "base" instead of "buffer_or_file"
+local TextPreviewer = builtin.base:extend()
+
+function TextPreviewer:new(o, opts, fzf_win)
+    TextPreviewer.super.new(self, o, opts, fzf_win)
+    setmetatable(self, TextPreviewer)
+    return self
+end
+
+function TextPreviewer:populate_preview_buf(entry_str)
+    local tmpbuf = self:get_tmp_buffer()
+
+    vim.api.nvim_buf_set_lines(tmpbuf, 0, -1, false, split_by_newline(entry_str))
+    self:set_preview_buf(tmpbuf)
+    self.win:update_scrollbar()
+end
+
+-- Disable line numbering and word wrap
+function TextPreviewer:gen_winopts()
+    local new_winopts = {
+        wrap = false,
+        number = false,
+    }
+    return vim.tbl_extend("force", self.winopts, new_winopts)
+end
+
 local function list_notification()
     local notifications = require("notify").history()
 
@@ -19,6 +63,7 @@ local function list_notification()
 
     require("fzf-lua").fzf_exec(messages, {
         prompt = "notifications",
+        previewer = TextPreviewer,
         actions = {
             ["default"] = function(selected)
                 local opened_buffer = require("notify").open(ids[selected[1]])
@@ -55,6 +100,7 @@ return {
     lazy = true,
     config = function()
         -- calling `setup` is optional for customization
+        local actions = require("fzf-lua.actions")
         require("fzf-lua").setup({
             grep = {
                 rg_glob = true,
@@ -73,6 +119,16 @@ return {
                     extensions = {
                         ["png"] = { "chafa" },
                         ["jpg"] = { "chafa" },
+                    },
+                },
+            },
+            git = {
+                status = {
+                    actions = {
+                        ["right"] = false,
+                        ["left"] = false,
+                        ["ctrl-x"] = { fn = actions.git_reset, reload = true },
+                        ["tab"] = { fn = actions.git_stage_unstage, reload = true },
                     },
                 },
             },
@@ -107,9 +163,16 @@ return {
         {
             "<leader>lb",
             function()
-                require("fzf-lua").buffers()
+                require("fzf-lua").git_branches()
             end,
-            desc = "[L]ist [B]uffers",
+            desc = "[L]ist [B]ranches",
+        },
+        {
+            "<leader>gs",
+            function()
+                require("fzf-lua").git_status()
+            end,
+            desc = "[G]it [S]tatus",
         },
         {
             "<leader>h",
