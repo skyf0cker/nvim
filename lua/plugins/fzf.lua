@@ -90,6 +90,9 @@ local function list_notification()
                 vim.fn.setwinvar(win, "&wrap", 0)
             end,
         },
+        winopts = {
+            split = "belowright new",
+        },
     })
 end
 
@@ -149,14 +152,23 @@ return {
         {
             "<leader>ff",
             function()
-                require("fzf-lua").files({ cmd = "fd --type f --exclude node_modules --exclude vendor" })
+                require("fzf-lua").files({
+                    cmd = "fd --type f --exclude node_modules --exclude vendor",
+                    winopts = {
+                        fullscreen = true,
+                    },
+                })
             end,
             desc = "[F]ind [F]ile",
         },
         {
             "<leader>sg",
             function()
-                require("fzf-lua").live_grep()
+                require("fzf-lua").live_grep({
+                    winopts = {
+                        fullscreen = true,
+                    },
+                })
             end,
             desc = "[S]earch by [G]rep",
         },
@@ -177,7 +189,11 @@ return {
         {
             "<leader>h",
             function()
-                require("fzf-lua").help_tags()
+                require("fzf-lua").help_tags({
+                    winopts = {
+                        fullscreen = true,
+                    },
+                })
             end,
             desc = "[H]elp",
         },
@@ -194,6 +210,9 @@ return {
                 require("fzf-lua").lsp_references({
                     includeDeclaration = false,
                     jump_to_single_result = true,
+                    winopts = {
+                        split = "belowright new",
+                    },
                 })
             end,
             desc = "[G]oto [R]eferences",
@@ -201,28 +220,45 @@ return {
         {
             "gi",
             function()
-                require("fzf-lua").lsp_implementations({ jump_to_single_result = true })
+                require("fzf-lua").lsp_implementations({
+                    jump_to_single_result = true,
+                    winopts = {
+                        split = "belowright new",
+                    },
+                })
             end,
             desc = "[G]oto [I]mplementations",
         },
         {
             "<leader>ld",
             function()
-                require("fzf-lua").diagnostics_document()
+                require("fzf-lua").diagnostics_document({
+                    winopts = {
+                        split = "belowright new",
+                    },
+                })
             end,
             desc = "[L]ist [D]iagnostics",
         },
         {
             "<leader>lad",
             function()
-                require("fzf-lua").diagnostics_workspace()
+                require("fzf-lua").diagnostics_workspace({
+                    winopts = {
+                        fullscreen = true,
+                    },
+                })
             end,
             desc = "[L]ist [A]ll [D]iagnostics",
         },
         {
             "<leader>ls",
             function()
-                require("fzf-lua").lsp_document_symbols()
+                require("fzf-lua").lsp_document_symbols({
+                    winopts = {
+                        split = "belowright new",
+                    },
+                })
             end,
             desc = "[L]ist [S]ymbols",
         },
