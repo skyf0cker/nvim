@@ -3,6 +3,8 @@ local M = {}
 local GoInput = require("custom.plugins.go.go-ui.input")
 local Job = require("plenary.job")
 local Fidget = require("fidget")
+local fzf = require("fzf-lua")
+local builtin = require("fzf-lua.previewer.builtin")
 
 local function get_go_test_func_nodes()
     local ok, parser = pcall(vim.treesitter.get_parser, 0, "go")
@@ -49,24 +51,6 @@ local function get_go_test_func_nodes()
 
     return funcs
 end
-
-local function get_go_tests(bufnr)
-    local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, true)
-
-    -- traverse the lines and use regex to find the golang test functions
-    local tests = {}
-    for _, line in ipairs(lines) do
-        local fname = string.match(line, "func (Test[%w_-]+)%([%w]+ %*testing.T%) {")
-        if fname then
-            table.insert(tests, fname)
-        end
-    end
-
-    return tests
-end
-
-local fzf = require("fzf-lua")
-local builtin = require("fzf-lua.previewer.builtin")
 
 local GoTestPreviewer = builtin.base:extend()
 
@@ -118,8 +102,6 @@ function M.list_go_tests(opts)
         func_tables[name] = func_node
     end
 
-    print(vim.inspect(func_tables))
-
     GoTestPreviewer.func_tables = func_tables
     GoTestPreviewer.current_buf = bufnr
 
@@ -165,16 +147,80 @@ local function exec_goimpl(receiver, interface)
     }
 end
 
+local function get_interface_definition(path, interface)
+    local lines = vim.fn.readfile(vim.loop.cwd() .. "/" .. path, "", 0)
+
+    local text = ""
+    for _, line in ipairs(lines) do
+        text = text .. line .. "\n"
+    end
+
+    local parser = vim.treesitter.get_string_parser(text, "go")
+    local tree = parser:parse()[1]
+    local query = vim.treesitter.query.parse(
+        "go",
+        ([[
+          (type_declaration 
+            (type_spec 
+              name: (type_identifier) @type_name (#eq? @type_name "%s")
+              type: (interface_type)))]]):format(interface)
+    )
+
+    for _, node in query:iter_captures(tree:root(), text, 0, -1) do
+        local start_row, _, end_row, _ = node:start()
+        local definition_lines = {}
+        for i = start_row or 1, end_row + 1 or #lines do
+            table.insert(definition_lines, lines[i])
+        end
+
+        return definition_lines
+    end
+
+    return { "interface definition not found" }
+end
+
+local GoImplPreviewer = builtin.base:extend()
+
+function GoImplPreviewer:new(o, opts, fzf_win)
+    GoImplPreviewer.super.new(self, o, opts, fzf_win)
+    setmetatable(self, GoImplPreviewer)
+    return self
+end
+
+function GoImplPreviewer:populate_preview_buf(entry_str)
+    local interface, path = string.match(entry_str, [[^(.*) => (.*)$]])
+    print(interface, path)
+    local definition = get_interface_definition(path, interface)
+
+    local tmpbuf = self:get_tmp_buffer()
+    vim.api.nvim_buf_set_option(tmpbuf, "filetype", "go")
+    vim.api.nvim_buf_set_lines(tmpbuf, 0, -1, false, definition)
+
+    self:set_preview_buf(tmpbuf)
+    self.win:update_scrollbar()
+end
+
+-- Disable line numbering and word wrap
+function GoImplPreviewer:gen_winopts()
+    local new_winopts = {
+        wrap = false,
+        number = true,
+    }
+    return vim.tbl_extend("force", self.winopts, new_winopts)
+end
+
 function M.impl()
     local line = vim.api.nvim_get_current_line()
     local type_name = string.match(line, "type ([%w_-]+) [%w%[%]%{%}]+")
     local receiver = type_name:sub(1, 1):lower()
 
     fzf.fzf_exec([[rg "^type .* interface"]], {
+        prompt = "Select Interface❯ ",
         fn_transform = function(x)
             local path, interface = string.match(x, [[^(.*):type (.*) interface.*]])
-            return require("fzf-lua").utils.ansi_codes.magenta(interface) .. " => " .. path
+            return fzf.utils.ansi_codes.blue(interface) .. " => " .. fzf.utils.ansi_codes.italic(path)
         end,
+        previewer = GoImplPreviewer,
         actions = {
             ["default"] = function(selected)
                 local raw = selected[1]
