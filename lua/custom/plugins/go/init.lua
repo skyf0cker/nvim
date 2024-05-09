@@ -166,37 +166,30 @@ local function exec_goimpl(receiver, interface)
 end
 
 function M.impl()
-    local on_submit = function(value)
-        Fidget.notify("generating stubs...", vim.log.levels.INFO)
+    local line = vim.api.nvim_get_current_line()
+    local type_name = string.match(line, "type ([%w_-]+) [%w%[%]%{%}]+")
+    local receiver = type_name:sub(1, 1):lower()
 
-        local line = vim.api.nvim_get_current_line()
-        local type_name = string.match(line, "type ([%w_-]+) [%w%[%]%{%}]+")
-        if not type_name then
-            vim.notify("there is no type definations under current cursor", vim.log.levels.ERROR)
-        end
-        local receiver = type_name:sub(1, 1):lower()
+    fzf.fzf_exec([[rg "^type .* interface"]], {
+        fn_transform = function(x)
+            local path, interface = string.match(x, [[^(.*):type (.*) interface.*]])
+            return require("fzf-lua").utils.ansi_codes.magenta(interface) .. " => " .. path
+        end,
+        actions = {
+            ["default"] = function(selected)
+                local raw = selected[1]
+                local interface, pkg = string.match(raw, [[^(.*) => .*/(.*)/.*%.go]])
 
-        local result = exec_goimpl(("%s *%s"):format(receiver, type_name), value)
-        if result.err ~= "" then
-            vim.notify(result.err, vim.log.levels.ERROR)
-            return
-        end
+                local result = exec_goimpl(("%s *%s"):format(receiver, type_name), pkg .. "." .. interface)
+                if result.err ~= "" then
+                    vim.notify(result.err, vim.log.levels.ERROR)
+                    return
+                end
 
-        vim.fn.setreg("+", result.stubs)
-        Fidget.notify("impl stubs copied to clipboard", vim.log.levels.INFO)
-    end
-
-    GoInput.ask({
-        themes = {
-            border = {
-                text = {
-                    top = "[interface]",
-                    top_align = "center",
-                },
-            },
+                vim.fn.setreg("+", result.stubs)
+                Fidget.notify("impl stubs copied to clipboard", vim.log.levels.INFO)
+            end,
         },
-        prompt = ">",
-        on_submit = on_submit,
     })
 end
 
