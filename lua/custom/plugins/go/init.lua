@@ -148,7 +148,8 @@ local function exec_goimpl(receiver, interface)
 end
 
 local function get_interface_definition(path, interface)
-    local lines = vim.fn.readfile(vim.loop.cwd() .. "/" .. path, "", 0)
+    local abs_path = vim.loop.cwd() .. "/" .. path
+    local lines = vim.fn.readfile(abs_path)
 
     local text = ""
     for _, line in ipairs(lines) do
@@ -163,17 +164,20 @@ local function get_interface_definition(path, interface)
           (type_declaration 
             (type_spec 
               name: (type_identifier) @type_name (#eq? @type_name "%s")
-              type: (interface_type)))]]):format(interface)
+              type: (interface_type))) @type]]):format(interface)
     )
 
-    for _, node in query:iter_captures(tree:root(), text, 0, -1) do
-        local start_row, _, end_row, _ = node:start()
-        local definition_lines = {}
-        for i = start_row or 1, end_row + 1 or #lines do
-            table.insert(definition_lines, lines[i])
-        end
+    for id, node in query:iter_captures(tree:root(), text, 0, -1) do
+        if id == 2 then
+            local start_row, _, end_row, _ = node:range()
 
-        return definition_lines
+            local definition_lines = {}
+            for i = start_row or 1, end_row + 1 do
+                table.insert(definition_lines, lines[i])
+            end
+
+            return definition_lines
+        end
     end
 
     return { "interface definition not found" }
@@ -189,7 +193,6 @@ end
 
 function GoImplPreviewer:populate_preview_buf(entry_str)
     local interface, path = string.match(entry_str, [[^(.*) => (.*)$]])
-    print(interface, path)
     local definition = get_interface_definition(path, interface)
 
     local tmpbuf = self:get_tmp_buffer()
