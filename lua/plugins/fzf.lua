@@ -269,6 +269,17 @@ return {
             end,
             desc = "[L]ist [N]otifications",
         },
+        {
+            "<leader>lo",
+            function()
+                require("fzf-lua").oldfiles({
+                    winopts = {
+                        split = "belowright new",
+                    },
+                })
+            end,
+            desc = "[L]ist [N]otifications",
+        },
     },
     cmd = { "FzfLua" },
 }

@@ -1,0 +1,3 @@
+return {
+    "jsonnet_ls",
+}
