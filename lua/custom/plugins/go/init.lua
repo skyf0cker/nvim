@@ -113,7 +113,7 @@ function M.list_go_tests(opts)
 		},
 		actions = {
 			["default"] = function(selected)
-				local cmd = "go test -v -timeout 3600s -run ^" .. selected[1] .. "$ " .. folder_path
+				local cmd = "go test -v -count=1 -timeout 3600s -run ^" .. selected[1] .. "$ " .. folder_path
 				vim.cmd(string.format([[TermExec cmd="%s" dir=%s direction=horizontal]], cmd, folder_path))
 			end,
 		},

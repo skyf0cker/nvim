@@ -1,7 +1,7 @@
 return {
 	"nvim-treesitter/nvim-treesitter-context",
 	config = function()
-		local rose_pallete = require("rose-pine.palette")
+		-- local rose_pallete = require("rose-pine.palette")
 		require("treesitter-context").setup({
 			enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
 			max_lines = 1, -- How many lines the window should span. Values <= 0 mean no limit.
@@ -20,13 +20,6 @@ return {
 		vim.keymap.set("n", "[c", function()
 			require("treesitter-context").go_to_context(vim.v.count1)
 		end, { silent = true })
-
-		vim.api.nvim_set_hl(0, "TreesitterContext", { bg = rose_pallete.highlight_med })
-		vim.api.nvim_set_hl(
-			0,
-			"TreesitterContextLineNumber",
-			{ bg = rose_pallete.highlight_med, fg = rose_pallete.rose }
-		)
 	end,
 	lazy = true,
 	event = { "BufReadPost", "BufNewFile" },
